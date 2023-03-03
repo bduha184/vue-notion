@@ -24,7 +24,6 @@ window.onload = function()
     if(checked) {
       text.style.visibility = 'visible';
     }else{
-
       text.style.visibility = 'hidden';
     }
   });
