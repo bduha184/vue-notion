@@ -2,7 +2,11 @@
   <div class="note"
     @mouseover="onMouseOver"
     @mouseleave="onMouseLeave"
-    v-bind:class="{mouseover:note.mouseover}">
+    v-bind:class="{mouseover: note.mouseover && !note.editing}">
+    <template v-if="note.editing">
+      <input v-model="note.name" class="transparent" @keypress.enter="onEditEnd" />
+    </template>
+    <template v-else>
     <div class="note-icon">
       <i class="fas fa-file-alt"></i>
     </div>
@@ -14,13 +18,14 @@
       <div class="button-icon">
         <i class="fas fa-plus-circle"></i>
       </div>
-      <div class="button-icon">
+      <div class="button-icon" @click="onClickEdit(note)">
         <i class="fas fa-edit"></i>
       </div>
       <div class="button-icon" @click="onClickDelete(note)">
         <i class="fas fa-trash"></i>
       </div>
     </div>
+  </template>
   </div>
 </template>
 
@@ -39,6 +44,12 @@ export default {
     },
     onClickDelete:function(note){
       this.$emit('delete',note);
+    },
+    onClickEdit:function(note){
+      this.$emit('editStart',note);
+    },
+    onClickEnd:function(){
+      this.$emit('editEnd');
     }
   }
 }
@@ -70,6 +81,15 @@ export default {
       margin-left: 3px;
       border-radius: 5px;
     }
+  }
+  input.transparent {
+    width: 100%;
+    border: none;
+  }
+  input.transparent:focus {
+    outline: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
   }
 }
 </style>
