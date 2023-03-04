@@ -1,5 +1,8 @@
 <template>
-  <div class="note">
+  <div class="note"
+    @mouseover="onMouseOver"
+    @mouseleave="onMouseLeave"
+    v-bind:class="{mouseover:note.mouseover}">
     <div class="note-icon">
       <i class="fas fa-file-alt"></i>
     </div>
@@ -13,6 +16,14 @@ export default {
   props: [
     'note',
   ],
+  methods:{
+    onMouseOver:function(){
+      this.note.mouseover = true;
+    },
+    onMouseLeave:function(){
+      this.note.mouseover = false;
+    }
+  }
 }
 </script>
 
@@ -23,6 +34,10 @@ export default {
   align-items: center;
   padding: 5px;
   color: rgba(25, 23, 17, 0.6);
+  &.mouseover {
+    background-color: rgb(232, 231, 228);
+    cursor: pointer;
+  }
   .note-icon {
     margin-left: 10px;
   }
