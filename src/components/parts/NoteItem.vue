@@ -7,6 +7,20 @@
       <i class="fas fa-file-alt"></i>
     </div>
     <div class="note-name">{{note.name}}</div>
+    <div v-show="note.mouseover" class="buttons">
+      <div class="button-icon">
+        <i class="fas fa-sitemap"></i>
+      </div>
+      <div class="button-icon">
+        <i class="fas fa-plus-circle"></i>
+      </div>
+      <div class="button-icon">
+        <i class="fas fa-edit"></i>
+      </div>
+      <div class="button-icon" @click="onClickDelete(note)">
+        <i class="fas fa-trash"></i>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,6 +36,9 @@ export default {
     },
     onMouseLeave:function(){
       this.note.mouseover = false;
+    },
+    onClickDelete:function(note){
+      this.$emit('delete',note);
     }
   }
 }
@@ -44,6 +61,15 @@ export default {
   .note-name {
     width: 100%;
     padding: 3px 10px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    .button-icon {
+      padding: 3px;
+      margin-left: 3px;
+      border-radius: 5px;
+    }
   }
 }
 </style>
