@@ -9,6 +9,7 @@
         @delete="onDeleteNote"
         @editStart="onEditNoteStart"
         @editEnd="onEditNoteEnd"
+        @addChild="onAddChildNote"
       />
 
       <!-- ノート追加ボタン -->
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import NoteItem from '@/components/parts/NoteItem.vue'
+import NoteItem from "@/components/parts/NoteItem.vue";
 export default {
   data() {
     return {
@@ -33,28 +34,38 @@ export default {
       this.noteList.push({
         id: new Date().getTime().toString(16),
         name: "新規ノート",
-        mouseover:false,
-        editing:false,
+        mouseover: false,
+        editing: false,
+        children: [],
       });
     },
-    onDeleteNote:function(deleteNote){
-     const index = this.noteList.indexOf(deleteNote);
-     this.noteList.splice(index,1);
+    onDeleteNote: function (deleteNote) {
+      const index = this.noteList.indexOf(deleteNote);
+      this.noteList.splice(index, 1);
     },
-    onEditNoteStart:function(editNote){
-      for(let note of this.noteList){
-        note.editing = (note.id === editNote.id)
-      }
-    },
-    onEditNoteEnd:function(){
+    onEditNoteStart: function (editNote) {
       for (let note of this.noteList) {
-          note.editing = false;
+        note.editing = note.id === editNote.id;
       }
-    }
+    },
+    onEditNoteEnd: function () {
+      for (let note of this.noteList) {
+        note.editing = false;
+      }
+    },
+    onAddChildNote: function (note) {
+      note.children.push({
+        id: new Date().getTime().toString(16),
+        name: note.name + "の子",
+        mouseover: false,
+        editing: false,
+        children: [],
+      });
+    },
   },
-  components:{
+  components: {
     NoteItem,
-  }
+  },
 };
 </script>
 
