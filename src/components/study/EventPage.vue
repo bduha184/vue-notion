@@ -4,7 +4,7 @@
     <!-- 従来のJavaScript -->
     <h3><span class="badge badge-secondary">JavaScript</span></h3>
     <span id="countText">クリックされた回数は0回です </span>
-    <button id="button" class="btn btn-sm btn-info">Click Me</button>
+    <button id="btn" class="btn btn-sm btn-info">Click Me</button>
     <br />
     <br />
     <!-- Vue.js -->
@@ -18,7 +18,7 @@
 
 <script>
 window.onload = function () {
-  const btn = document.getElementById("button");
+  const btn = document.getElementById("btn");
   const countText = document.getElementById("countText");
 
   let count = 0;
