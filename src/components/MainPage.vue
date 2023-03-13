@@ -5,6 +5,7 @@
       <NoteItem
         v-for="note in noteList"
         v-bind:note="note"
+        v-bind:layer="1"
         v-bind:key="note.id"
         @delete="onDeleteNote"
         @editStart="onEditNoteStart"
